@@ -2,17 +2,17 @@
 
 use yii\db\Migration;
 
-class m130524_201442_init extends Migration
+/**
+ * Handles the creation of table `{{%backend_user}}`.
+ */
+class m230508_151603_create_backend_user_table extends Migration
 {
-    public function up()
+    /**
+     * {@inheritdoc}
+     */
+    public function safeUp()
     {
-        $tableOptions = null;
-        if ($this->db->driverName === 'mysql') {
-            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
-            $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=InnoDB';
-        }
-
-        $this->createTable('{{%front_user}}', [
+        $this->createTable('{{%backend_user}}', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
             'auth_key' => $this->string(32)->notNull(),
@@ -23,11 +23,14 @@ class m130524_201442_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-        ], $tableOptions);
+        ]);
     }
 
-    public function down()
+    /**
+     * {@inheritdoc}
+     */
+    public function safeDown()
     {
-        $this->dropTable('{{%front_user}}');
+        $this->dropTable('{{%backend_user}}');
     }
 }
